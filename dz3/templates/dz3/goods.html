@@ -1,0 +1,64 @@
+{% extends 'dz3/base.html' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+{% block content %}
+  <br /><br />
+  <div class="row">
+    {% for good in goods %}
+      <p class="col-12 col-md-6">
+        ID товара: {{ good.id }}<br />
+        Наименование товара: {{ good.goods_name }}<br />
+        Описание товара: {{ good.description }}<br />
+        Цена товара: {{ good.price }}<br />
+        Количество товара: {{ good.quantity }}<br />
+        Дата создания: {{ good.add_date }}<br />
+      </p>
+      <p class="col-12 col-md-6">
+        <img src="{{ good.image }}" width="200px" alt="{{ good.image }}" />
+      </p>
+
+      <div class="image">
+        <a href="/upload/{{ good.id }}/">Загрузить изображение</a>
+      </div>
+      <div class="delete">
+        <a href="/goods/delete/{{ good.id }}/">Удалить товар</a>
+      </div>
+
+      <br />
+      <br />
+    {% endfor %}
+  </div>
+  <form action="/goods/create/" method="post">
+    {% csrf_token %}
+    <h2>Добавить товар в базу</h2>
+    <div class="input">
+      <div class="blockinput">
+        <label for="goods_name">Наименование:</label>
+        <input type="text" name="goods_name" placeholder="Наименование товара" />
+      </div>
+
+      <div class="blockinput">
+        <label for="description">Описание:</label>
+        <input type="text" name="description" placeholder="Описание товара" />
+      </div>
+
+      <div class="blockinput">
+        <label for="price">Цена:</label>
+        <input type="decimal" name="price" placeholder="Цена товара" />
+      </div>
+
+      <div class="blockinput">
+        <label for="quantity">Количество:</label>
+        <input type="decimal" name="quantity" placeholder="Количество товара" />
+      </div>
+    </div>
+    <div>
+      <input class="in_submit" type="submit" value="Добавить товар" />
+    </div>
+  </form>
+  <br /> <br /> <br />
+  <br />
+{% endblock %}
